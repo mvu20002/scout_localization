@@ -1,2 +1,29 @@
 # scout_localization
 A library with examples demonstrating the localization of the Agilex Scout V2 robot on ROS. It utilizes sensor fusion of wheel odometry, visual odometry, GPS, and IMU measurements for enhanced accuracy.
+# Agilex Scout V2 Localization Library
+
+This repository provides examples for localizing the Agilex Scout V2 robot on ROS. It demonstrates sensor fusion using wheel odometry, visual odometry, GPS, and IMU measurements for accurate localization.
+
+## Installation
+
+Follow the steps below to set up the workspace:
+
+```bash
+git clone my_repo_link
+cd scout_ws
+catkin_make
+```
+
+## Examples
+
+### 1. IMU + Wheel Odometry
+To launch localization using IMU and wheel odometry:
+```bash
+roslaunch intro_to_robot_autonomy term_project.launch
+```
+
+### 2. IMU + Wheel Odometry + GPS
+To launch localization using IMU, wheel odometry, and GPS:
+```bash
+roslaunch intro_to_robot_autonomy term_project_gps.launch
+```
