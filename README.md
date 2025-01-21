@@ -9,8 +9,8 @@ This repository provides examples for localizing the Agilex Scout V2 robot on RO
 Follow the steps below to set up the workspace:
 
 ```bash
-git clone my_repo_link
-cd scout_ws
+git clone https://github.com/mvu20002/scout_localization.git
+cd scout_localization
 catkin_make
 ```
 
