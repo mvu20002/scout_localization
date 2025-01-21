@@ -32,3 +32,4 @@ To launch localization using IMU, wheel odometry, and GPS:
 ```bash
 roslaunch intro_to_robot_autonomy term_project.launch
 ```
+When you execute command above gazebo and rqt_multiplot will be opened and you can track the localization results.
