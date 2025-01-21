@@ -4,30 +4,38 @@
 
 <launch>
     <!-- Start Clearpath Inspeciton Map with Scout v2 Inside -->
-    <include file="$(find intro_to_robot_autonomy)/launch/inspection_empty_world.launch"></include>
+    <include file="$(find intro_to_robot_autonomy)/include/inspection_empty_world.launch"></include>
 
-    
     <!-- Since robot model does not have direct wheel odom. We need to generate it -->
     <include file="$(find project1)/launch/launcher.launch"></include>
 
+    <!-- Publishing visual odometry (this part is not ready yet) -->
+    <!-- <node pkg="mono-slam" type="mono-slam" name="visual_odom_from_rgb" args="$(find intro_to_robot_autonomy)/config/vis_odom.cfg" output="screen">
+        <remap from="/image" to="/camera/image_raw" />
+    </node> -->
+
+    <!-- Start the circular movement command -->
     <node pkg="intro_to_robot_autonomy" type="circle_mov_command" name="circular"></node>
+
+    <!-- Start the rqt_multiplot -->
     <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" output="screen" args="--multiplot-config $(find intro_to_robot_autonomy)/rqt_multiplot_conf/ground_truth_vs_local_vs_global.xml --multiplot-run-all"/>
 
     <!-- Static transform frame  -->
     <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="-0.67825673 -0.631779108 0 0 0 0.638459 0.7696558 world odom 100"/>
 
-
+    <!-- Start the local robot_localization (wheel odometry + IMU) -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local">
-        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/gps_confs/imu_wheel.yaml" />
+        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/local_conf.yaml" />
         <remap from="odometry/filtered" to="odometry/filtered_local" />
     </node>
 
-
+    <!-- Start the global robot_localization (wheel odometry + IMU + GPS) -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_global">
-        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/gps_confs/local_gps.yaml" />
+        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/global_conf.yaml" />
         <remap from="odometry/filtered" to="odometry/filtered_global" />
     </node>
 
+    <!-- Start the navsat_transform_node (necessary for integrating GPS) -->
     <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
         <param name="magnetic_declination_radians" value="0"/>
         <param name="yaw_offset" value="0"/>
