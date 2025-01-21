@@ -13,9 +13,10 @@
     <include file="$(find project1)/launch/launcher.launch"></include>
     <!-- <node pkg="intro_to_robot_autonomy" type="pub_odom_from_robot_state" name="pub_odom"/> -->
 
-    <node pkg="intro_to_robot_autonomy" type="parametric_velocity_sequential" name="velocity_sequential_node"></node>
-    <!-- <node pkg="intro_to_robot_autonomy" type="circular_mov_command" name="circular"></node> -->
-    <!-- Static transform frame  -->
+    <node pkg="intro_to_robot_autonomy" type="circle_mov_command" name="circular"></node>
+    <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" output="screen" args="--multiplot-config /home/veli/scout_ws/src/intro_to_robot_autonomy/rqt_multiplot_conf/ground_truth_vs_filtered.xml --multiplot-run-all"></node>
+
+
     <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="-0.67825673 -0.631779108 0 0 0 0.638459 0.7696558 world odom 100"/>
 
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local">
@@ -27,8 +28,6 @@
 
 
 
-    <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" output="screen" args="--multiplot-config /home/veli/scout_ws/src/intro_to_robot_autonomy/rqt_multiplot_conf/ground_truth_vs_filtered.xml --multiplot-run-all">
-    </node>
     <!-- <node pkg="mono-slam" type="mono-slam" name="visual_odom_from_rgb" args="$(find intro_to_robot_autonomy)/config/vis_odom.cfg" output="log"> 
         <remap from="/image" to="/camera/image_raw" />
     </node> -->

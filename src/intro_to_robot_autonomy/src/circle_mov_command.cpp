@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 
   // Twist mesajı oluştur
   geometry_msgs::Twist vel_msg;
-  vel_msg.linear.x = 0.5;  // İleri hız (m/s)
+  vel_msg.linear.x = 0.6;  // İleri hız (m/s)
   vel_msg.angular.z = 0.05; // Açısal hız (rad/s)
 
   // Sürekli olarak hız komutlarını yayınla
