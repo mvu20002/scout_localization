@@ -21,6 +21,7 @@ catkin_make
 Source:
 ```bash
 echo "source ~/scout_localization/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 
