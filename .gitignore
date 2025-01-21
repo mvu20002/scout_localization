@@ -3,3 +3,5 @@ devel/
 src/cpr_gazebo/
 .vscode/
 src/.vscode/
+src/intro_to_robot_autonomy/.vscode/
+.catkin_workspace/
