@@ -1,0 +1,9 @@
+<launch>
+    <param name="initial_pose_x" type="double" value="0"/>
+    <param name="initial_pose_y" type="double" value="0"/>
+    <param name="initial_pose_orientation" type="double" value="0"/>
+
+    <node pkg="project1" name="wheel_vel" type="wheel_vel"/>
+    <node pkg="project1" name="velocity_publisher" type="velocity_publisher"/>
+    <node pkg="project1" name="odometry" type="odometry" output="log"/>
+</launch>
