@@ -70,16 +70,36 @@ Reference:
 
   <gazebo>
     <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
-        <updateRate>10.0</updateRate>
-        <bodyName>gps_link</bodyName>
-        <frameId>gps_link</frameId>
-        <topicName>scout/gps/fix</topicName>
-        <velocityTopicName>/gps/vel</velocityTopicName>
-        <referenceLatitude>41.105078</referenceLatitude>
-        <referenceLongitude>29.023579</referenceLongitude>
-        <gaussianNoise>3.16227 3.16227 0</gaussianNoise>
-        <velocityGaussianNoise>3.16227 3.16227 0</velocityGaussianNoise>
+        <!-- Temel Ayarlar -->
+        <updateRate>10.0</updateRate> <!-- Sensör güncelleme oranı (Hz cinsinden) -->
+        <bodyName>base_link</bodyName> <!-- GNSS alıcısının bağlı olduğu gövde -->
+        <frameId>gps_link</frameId> <!-- Mesaj başlıklarındaki frame_id -->
+        <topicName>scout/gps/fix</topicName> <!-- GPS verisinin çıktığı konu -->
+        <velocityTopicName>/gps/vel</velocityTopicName> <!-- GNSS hız vektörü için çıktı konusu -->
+
+        <!-- Referans Noktası Ayarları -->
+        <referenceLatitude>41.105078</referenceLatitude> <!-- Gazebo çerçevesinin enlemi -->
+        <referenceLongitude>-29.023579</referenceLongitude> <!-- Gazebo çerçevesinin boylamı -->
+        <referenceHeading>0.0</referenceHeading> <!-- Gazebo çerçevesinin x ekseninin coğrafi başlığı -->
+        <referenceAltitude>0.0</referenceAltitude> <!-- Gazebo çerçevesinin deniz seviyesinden yüksekliği -->
+
+        <!-- Durum ve Servis Bayrakları -->
+        <status>0</status> <!-- Fix mesajındaki durum bayrağı (STATUS_FIX varsayılan) -->
+        <service>1</service> <!-- Fix mesajındaki servis bayrağı (SERVICE_GPS varsayılan) -->
+
+        <!-- Pozisyon ve Hız Hataları -->
+        <offset>0 0 0</offset> <!-- Gazebo koordinatlarında sabit pozisyon ofseti (metre) -->
+        <drift>0 0 0</drift> <!-- Pozisyon sürüklenmesi için standart sapma -->
+        <driftFrequency>0 0 0</driftFrequency> <!-- Pozisyon sürüklenmesi için ortalama frekans -->
+        <gaussianNoise>3.16227 3.16227 0</gaussianNoise> <!-- Pozisyona eklenen Gauss gürültüsü (standart sapma) -->
+
+        <!-- Hız Hataları -->
+        <velocityOffset>0 0 0</velocityOffset> <!-- Gazebo koordinatlarında sabit hız ofseti (m/s) -->
+        <velocityDrift>0 0 0</velocityDrift> <!-- Hız sürüklenmesi için standart sapma -->
+        <velocityDriftFrequency>0 0 0</velocityDriftFrequency> <!-- Hız sürüklenmesi için ortalama frekans -->
+        <velocityGaussianNoise>3.16227 3.16227 0</velocityGaussianNoise> <!-- Hıza eklenen Gauss gürültüsü (standart sapma) -->
     </plugin>
+
 
     <sensor name="my_gps" type="gps">
         <always_on>true</always_on>
@@ -87,15 +107,38 @@ Reference:
   </gazebo>
 
 <gazebo>
-    <plugin name="gazebo_ros_imu" filename="libhector_gazebo_ros_imu.so">
-        <updateRate>100.0</updateRate> <!-- IMU update rate set to 100 Hz -->
-        <bodyName>imu_link</bodyName> <!-- IMU attached to imu_link -->
-        <topicName>scout/imu/data</topicName> <!-- IMU data published to /imu/data -->
-        <accelDrift>0.00006 0.00006 0.00006</accelDrift> <!-- Accelerometer drift -->
-        <accelGaussianNoise>0.00006 0.00006 0.00006</accelGaussianNoise> <!-- Accelerometer noise -->
-        <rateDrift>0.0027 0.0027 0.0027</rateDrift> <!-- Gyroscope drift -->
-        <rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise> <!-- Gyroscope noise -->
-    </plugin>
+  <plugin name="gazebo_ros_imu" filename="libhector_gazebo_ros_imu.so">
+      <!-- Temel Ayarlar -->
+      <updateRate>100.0</updateRate> <!-- IMU güncelleme oranı (Hz cinsinden) -->
+      <bodyName>base_link</bodyName> <!-- IMU sensörünün bağlı olduğu gövde -->
+      <topicName>scout/imu/data</topicName> <!-- IMU verisinin yayınlandığı konu -->
+      <serviceName>scout/imu/calibrate</serviceName> <!-- Kalibrasyon servisi -->
+
+      <!-- İvme Hataları -->
+      <accelOffset>0 0 0</accelOffset> <!-- Sabit ivme ofseti -->
+      <accelDrift>0.00006 0.00006 0.00006</accelDrift> <!-- İvme sürüklenmesi (standart sapma) -->
+      <accelDriftFrequency>1.0 1.0 1.0</accelDriftFrequency> <!-- İvme sürüklenmesi için ortalama frekans -->
+      <accelGaussianNoise>0.00006 0.00006 0.00006</accelGaussianNoise> <!-- İvme gürültüsü (standart sapma) -->
+
+      <!-- Açısal Hız Hataları -->
+      <rateOffset>0 0 0</rateOffset> <!-- Sabit açısal hız ofseti -->
+      <rateDrift>0.0027 0.0027 0.0027</rateDrift> <!-- Açısal hız sürüklenmesi (standart sapma) -->
+      <rateDriftFrequency>1.0 1.0 1.0</rateDriftFrequency> <!-- Açısal hız sürüklenmesi için ortalama frekans -->
+      <rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise> <!-- Açısal hız gürültüsü (standart sapma) -->
+
+      <!-- Yönelim (Yaw) Hataları -->
+      <yawOffset>0.0</yawOffset> <!-- Sabit yönelim ofseti -->
+      <yawDrift>0.001</yawDrift> <!-- Yönelim sürüklenmesi (standart sapma) -->
+      <yawDriftFrequency>1.0</yawDriftFrequency> <!-- Yönelim sürüklenmesi için ortalama frekans -->
+      <yawGaussianNoise>0.01</yawGaussianNoise> <!-- Yönelim gürültüsü (standart sapma) -->
+
+      <!-- Gürültü Ayarları (Uyumluluk için) -->
+      <gaussianNoise>0.01</gaussianNoise> <!-- Genel Gaussian gürültüsü (ivme ve açısal hız için) -->
+
+      <!-- Roll, Pitch, Yaw Ofsetleri -->
+      <rpyOffsets>0.0 0.0 0.0</rpyOffsets> <!-- Platform seviyelendiğinde roll, pitch ve yaw hataları -->
+  </plugin>
+
     <sensor name="my_imu" type="imu">
         <always_on>true</always_on> <!-- Sensor always active -->
         <update_rate>300</update_rate> <!-- High sensor update rate to avoid aliasing -->

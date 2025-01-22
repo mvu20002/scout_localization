@@ -37,19 +37,20 @@
         <remap from="odometry/filtered" to="odometry/filtered_global" />
     </node>
 
+    <!-- Start the navsat_transform_node (necessary for integrating GPS) -->
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
+        <param name="magnetic_declination_radians" value="0,1689479"/>
+        <param name="yaw_offset" value="0"/>
+        <param name="wait_for_datum" value="true"/>
+        <param name="datum" value="[41.105078,-29.023579,0.0]"/>
+        <param name="zero_altitude" value="true"/>
+        <param name="publish_filtered_gps" value="true"/>
+        <remap from="/imu/data" to="/scout/imu/data" />
+        <remap from="/gps/fix" to="/scout/gps/fix" />
+        <remap from="/odometry/filtered" to="/odometry/filtered_global" />
+    </node>
 
-        <!-- Start the navsat_transform_node (necessary for integrating GPS) -->
-        <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
-            <param name="magnetic_declination_radians" value="0"/>
-            <param name="yaw_offset" value="1.5707963"/>
-            <param name="wait_for_datum" value="false"/>
-            <rosparam param="datum">[41.105078, -29.023579, 0.0,map,base_link]</rosparam>
-            <param name="zero_altitude" value="true"/>
-            <param name="publish_filtered_gps" value="true"/>
-            <remap from="/imu/data" to="/scout/imu/data" />
-            <remap from="/gps/fix" to="/scout/gps/fix" />
-            <remap from="/odometry/filtered" to="/odometry/filtered_global" />
-        </node>
+
 
 
 </launch>
