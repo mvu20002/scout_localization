@@ -15,7 +15,7 @@
     </node> -->
 
     <!-- Start the circular movement command -->
-    <!-- <node pkg="intro_to_robot_autonomy" type="circle_mov_command" name="circular"></node> -->
+    <node pkg="intro_to_robot_autonomy" type="circle_mov_command" name="circular"></node>
 
     <!-- Start the rqt_multiplot -->
     <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" output="log" args="--multiplot-config $(find intro_to_robot_autonomy)/rqt_multiplot_conf/ground_truth_vs_local_vs_global.xml --multiplot-run-all"/>
