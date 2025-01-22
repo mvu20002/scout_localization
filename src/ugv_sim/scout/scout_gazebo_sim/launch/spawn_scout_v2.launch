@@ -32,10 +32,10 @@
             <rosparam command="load" file="$(find scout_control)/config/scout2_control.yaml"/>
             
     <!-- load the controllers -->
-    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="log" 
     args="scout_state_controller scout_motor_fr_controller scout_motor_fl_controller scout_motor_rl_controller scout_motor_rr_controller"/>
   
-   <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+   <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="log" 
     args="scout2_joint_publisher scout2_velocity_controller"/> -->
 
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />

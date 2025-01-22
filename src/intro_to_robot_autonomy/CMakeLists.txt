@@ -14,10 +14,19 @@ find_package(catkin REQUIRED COMPONENTS
     tf2_ros
     nav_msgs
     tf
-    ros_controllers
+    velocity_controllers
     robot_localization
     rqt_multiplot
     hector_gazebo_plugins
+    cv_bridge
+    tf
+    image_transport
+    roslint
+    xacro
+    robot_state_publisher
+    gazebo_plugins
+    joint_state_publisher
+    gazebo_ros_control
 )
 catkin_package(
   INCLUDE_DIRS include

@@ -8,6 +8,36 @@ This repository provides examples and tools for localizing the Agilex Scout V2 r
 
 Ensure the following dependencies are installed before proceeding:
 
+### ROS Noetic
+This repository developed for ROS Noetic
+- [Ros Noetic Installation](https://wiki.ros.org/noetic/Installation/Ubuntu)
+
+### ROS Dependencies
+Make sure the following ROS packages are installed for ROS Noetic:
+```bash
+sudo apt-get install ros-noetic-roslaunch \
+                     ros-noetic-roslint \
+                     ros-noetic-roscpp \
+                     ros-noetic-std-msgs \
+                     ros-noetic-sensor-msgs \
+                     ros-noetic-geometry-msgs \
+                     ros-noetic-tf2 \
+                     ros-noetic-tf2-ros \
+                     ros-noetic-nav-msgs \
+                     ros-noetic-tf \
+                     ros-noetic-velocity-controllers \
+                     ros-noetic-robot-localization \
+                     ros-noetic-rqt-multiplot \
+                     ros-noetic-hector-gazebo-plugins \
+                     ros-noetic-cv-bridge \
+                     ros-noetic-image-transport \
+                     ros-noetic-xacro \
+                     ros-noetic-robot-state-publisher \
+                     ros-noetic-gazebo-plugins \
+                     ros-noetic-joint-state-publisher \
+                     ros-noetic-gazebo-ros-control
+```
+
 ### System Dependency
 Install the required library for configuration management:
 ```bash
