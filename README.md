@@ -1,12 +1,46 @@
 # Agilex Scout V2 Localization Library
 
-A library with examples demonstrating the localization of the Agilex Scout V2 robot on ROS. It utilizes sensor fusion of wheel odometry, visual odometry, GPS, and IMU measurements for enhanced accuracy.
+This repository provides examples and tools for localizing the Agilex Scout V2 robot in a ROS environment. It demonstrates sensor fusion of wheel odometry, visual odometry, GPS, and IMU measurements to achieve enhanced localization accuracy.
+
+---
 
 ## Prerequisites
-- Ensure the following repository is cloned under `../scout_localization/src` path and set up in your workspace:
-  [clearpathrobotics/cpr_gazebo](https://github.com/clearpathrobotics/cpr_gazebo)
 
-Your file tree should look like this:
+Ensure the following dependencies are installed before proceeding:
+
+### System Dependency
+Install the required library for configuration management:
+```bash
+sudo apt-get install libconfig++-dev
+```
+
+
+## Installation
+
+Follow these steps to set up and configure the workspace:
+
+### Clone and Build
+```bash
+git clone https://github.com/mvu20002/scout_localization.git
+cd scout_localization
+catkin_make
+```
+
+### Source the Workspace
+Add the workspace setup script to your shell configuration for convenience:
+```bash
+echo "source ~/scout_localization/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Additional Repository
+Clone the required repository into your workspace under the `src` directory:
+- [Clearpath Robotics CPR Gazebo](https://github.com/clearpathrobotics/cpr_gazebo)
+
+---
+
+### Verify Directory Structure
+Ensure your workspace structure matches the following layout:
 ```plaintext
 .
 ├── README.md
@@ -21,22 +55,7 @@ Your file tree should look like this:
 6 directories, 2 files
 ```
 
-## Installation
-
-Follow the steps below to set up the workspace:
-
-### Clone and Build
-```bash
-git clone https://github.com/mvu20002/scout_localization.git
-cd scout_localization
-catkin_make
-```
-
-### Source the Workspace
-```bash
-echo "source ~/scout_localization/devel/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-```
+---
 
 ## Examples
 
@@ -48,4 +67,5 @@ roslaunch intro_to_robot_autonomy term_project.launch
 When you execute the command above, Gazebo and `rqt_multiplot` will open, allowing you to track the localization results in real time.
 
 ---
+
 If you encounter any issues, feel free to check your setup and ensure all prerequisites are correctly installed.
