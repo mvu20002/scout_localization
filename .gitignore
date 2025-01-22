@@ -5,3 +5,4 @@ src/cpr_gazebo/
 src/.vscode/
 src/intro_to_robot_autonomy/.vscode/
 .catkin_workspace/
+src/intro_to_robot_autonomy/launch/term_project.launch/
