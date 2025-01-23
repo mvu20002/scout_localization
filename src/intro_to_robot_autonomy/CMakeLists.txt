@@ -28,6 +28,20 @@ find_package(catkin REQUIRED COMPONENTS
     joint_state_publisher
     gazebo_ros_control
 )
+
+add_message_files(
+  FILES
+  MSE.msg
+)
+
+generate_messages(
+	DEPENDENCIES
+	std_msgs
+	nav_msgs
+  geometry_msgs
+)
+
+
 catkin_package(
   INCLUDE_DIRS include
 #   LIBRARIES 
@@ -36,6 +50,8 @@ catkin_package(
 )
 
 find_package(YAML-CPP REQUIRED)
+
+
 
 
 ###########
@@ -67,6 +83,10 @@ target_link_libraries(imu_accuracy_checker ${catkin_LIBRARIES})
 
 add_executable(parametric_velocity_sequential src/vel_commands.cpp)
 target_link_libraries(parametric_velocity_sequential ${catkin_LIBRARIES})
+
+add_executable(real_time_mse src/mse.cpp)
+target_link_libraries(real_time_mse ${catkin_LIBRARIES})
+add_dependencies(real_time_mse intro_to_robot_autonomy_generate_messages_cpp)
 
 catkin_install_python(PROGRAMS src/live_map.py
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

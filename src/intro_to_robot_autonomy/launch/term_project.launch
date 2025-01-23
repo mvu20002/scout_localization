@@ -18,15 +18,15 @@
     <node pkg="intro_to_robot_autonomy" type="circle_mov_command" name="circular"></node>
 
     <!-- Start the rqt_multiplot -->
-    <node pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot" output="log" args="--multiplot-config $(find intro_to_robot_autonomy)/rqt_multiplot_conf/ground_truth_vs_local_vs_global.xml --multiplot-run-all"/>
-    <node  pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot2" output="log" args="--multiplot-config $(find intro_to_robot_autonomy)/rqt_multiplot_conf/circle.xml --multiplot-run-all"/>
+    <node  pkg="rqt_multiplot" type="rqt_multiplot" name="rqt_multiplot2" output="log" args="--multiplot-config $(find intro_to_robot_autonomy)/rqt_multiplot_conf/all.xml --multiplot-run-all"/>
 
 
     <!-- Static transform frame  -->
     <node output="log" pkg="tf" type="static_transform_publisher" name="world_to_odom" args="-0.67825673 -0.631779108 0 0 0 0.638459 0.7696558 world odom 100"/>
     <!-- Start the local robot_localization (wheel odometry + IMU) -->
+
     <node output="log" pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local">
-        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/local_conf.yaml" />
+        <rosparam command="load" file="$(find intro_to_robot_autonomy)/config/local_imu_wheel.yaml" />
         <remap from="odometry/filtered" to="odometry/filtered_local" />
     </node>
 
@@ -37,18 +37,31 @@
     </node>
 
 
-        <!-- Start the navsat_transform_node (necessary for integrating GPS) -->
-        <node output="log" pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
-            <param name="magnetic_declination_radians" value="0"/>
-            <param name="yaw_offset" value="1.5707963"/>
-            <param name="wait_for_datum" value="false"/>
-            <rosparam param="datum">[41.105078, -29.023579, 0.0,map,base_link]</rosparam>
-            <param name="zero_altitude" value="true"/>
-            <param name="publish_filtered_gps" value="true"/>
-            <remap from="/imu/data" to="/scout/imu/data" />
-            <remap from="/gps/fix" to="/scout/gps/fix" />
-            <remap from="/odometry/filtered" to="/odometry/filtered_global" />
-        </node>
+    <!-- Start the navsat_transform_node (necessary for integrating GPS) -->
+    <node output="log" pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
+        <param name="magnetic_declination_radians" value="0"/>
+        <param name="yaw_offset" value="1.5707963"/>
+        <param name="wait_for_datum" value="false"/>
+        <rosparam param="datum">[41.105078, -29.023579, 0.0,map,base_link]</rosparam>
+        <param name="zero_altitude" value="true"/>
+        <param name="publish_filtered_gps" value="true"/>
+        <remap from="/imu/data" to="/scout/imu/data" />
+        <remap from="/gps/fix" to="/scout/gps/fix" />
+        <remap from="/odometry/filtered" to="/odometry/filtered_global" />
+    </node>
+
+    <!-- Start the real_time_mse_node -->
+    <node pkg="intro_to_robot_autonomy" type="real_time_mse" name="local" output="screen">
+        <param name="topic1" value="/body_pose_ground_truth" />
+        <param name="topic2" value="/odometry/filtered_local" />
+        <param name="output_topic" value="/mse_local" />
+    </node>
+
+    <node pkg="intro_to_robot_autonomy" type="real_time_mse" name="global" output="screen">
+        <param name="topic1" value="/body_pose_ground_truth" />
+        <param name="topic2" value="/odometry/filtered_global" />
+        <param name="output_topic" value="/mse_global" />
+    </node>
 
 
 </launch>

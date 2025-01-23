@@ -14,7 +14,7 @@
     <arg name="world_yaw" default="0.0"/>
 
     <arg name="use_sim_time" default="true" />
-    <arg name="gui" default="false" />
+    <arg name="gui" default="true" />
     <arg name="headless" default="false" />
     <arg name="world_name" default="$(find cpr_inspection_gazebo)/worlds/inspection_world.world" />
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
